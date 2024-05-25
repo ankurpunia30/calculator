@@ -1,79 +1,232 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Sure, here's a README file formatted for a GitHub repository:
 
-# Getting Started
+---
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# Calculator App
 
-## Step 1: Start the Metro Server
+This project is a simple calculator application built using React Native. It supports basic arithmetic operations and includes features such as history management, backspace, and clearing functions.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Features
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Basic Arithmetic Operations**: Addition, subtraction, multiplication, and division.
+- **Special Operations**: Modulus.
+- **History Management**: Displays the last four calculations.
+- **Clear (C) and All Clear (AC) Functions**: Clear the current input or reset the calculator.
+- **Backspace Function**: Delete the last input character.
+- **Additional Features**: Support for double zero (00) and decimal point.
 
-```bash
-# using npm
-npm start
+## Installation
 
-# OR using Yarn
-yarn start
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-username/calculator-app.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd calculator-app
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+## Usage
+
+1. Start the application:
+   ```sh
+   npm start
+   ```
+2. Use an emulator or connect a physical device to run the app:
+   ```sh
+   npx react-native run-android
+   ```
+   or
+   ```sh
+   npx react-native run-ios
+   ```
+
+## Code Explanation
+
+### Components
+
+#### `Button` Component
+
+This component renders a calculator button.
+
+```tsx
+type ButtonProps = {
+  onPress: () => void;
+  style?: any;
+  textStyle?: any;
+  text: string;
+};
+
+const Button: React.FC<ButtonProps> = ({ onPress, style, textStyle, text }) => (
+  <TouchableOpacity style={style} onPress={onPress}>
+    <Text style={textStyle}>{text}</Text>
+  </TouchableOpacity>
+);
 ```
 
-## Step 2: Start your Application
+#### `App` Component
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+This is the main component of the calculator app.
 
-### For Android
+1. **State Variables**:
+   - `displayValue`: Current value displayed.
+   - `operator`: Current operator selected.
+   - `firstValue`: First operand in the operation.
+   - `history`: List of previous calculations.
 
-```bash
-# using npm
-npm run android
+2. **Functions**:
+   - `handleNumberInput(num: number)`: Handles number button presses.
+   - `handleOperatorInput(op: string)`: Handles operator button presses.
+   - `handleEqual()`: Computes the result of the operation.
+   - `handleClear()`: Clears the current input.
+   - `handleAllClear()`: Clears all inputs and history.
+   - `handleBackspace()`: Deletes the last character of the current input.
+   - `renderButton(text: string)`: Renders each button with appropriate styles and functions.
 
-# OR using Yarn
-yarn android
+3. **Layout**:
+   - The app layout includes history display, current value display, and buttons arranged in rows.
+
+### Styles
+
+The styles are defined using `StyleSheet.create` for consistency and ease of maintenance.
+
+```tsx
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  historyContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    width: '100%',
+    padding: 20,
+    borderWidth: 2,
+    borderColor: '#ffffff',
+    borderRadius: 10,
+  },
+  historyText: {
+    fontSize: 18,
+    color: '#666',
+  },
+  displayContainer: {
+    flex: 2,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    padding: 20,
+    marginBottom: 10,
+    width: '100%',
+    elevation: 3,
+    shadowColor: '#333',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+  displayText: {
+    fontSize: 48,
+    color: '#333',
+  },
+  buttonContainer: {
+    flex: 3,
+    width: '100%',
+    padding: 20,
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 2,
+    justifyContent: 'space-between',
+  },
+  button: {
+    flex: 1,
+    borderRadius: 10,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#f0f0f0',
+    elevation: 3,
+    margin: 2,
+    padding: 5,
+  },
+  buttonText: {
+    fontSize: 34,
+    color: '#333',
+  },
+  operatorButton: {
+    backgroundColor: '#f0f0f0',
+  },
+  operatorButtonText: {
+    color: '#ff9500',
+  },
+  equalButton: {
+    flex: 1,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff9500',
+    elevation: 3,
+  },
+  equalButtonText: {
+    fontSize: 32,
+    color: '#fff',
+  },
+  clearButton: {
+    flex: 1,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff9500',
+    elevation: 3,
+    margin: 2,
+    padding: 15,
+  },
+  clearButtonText: {
+    fontSize: 24,
+    color: '#333',
+  },
+  allClearButton: {
+    flex: 1,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff0000',
+    elevation: 3,
+    margin: 2,
+    padding: 5,
+  },
+  allClearButtonText: {
+    fontSize: 24,
+    color: '#fff',
+  },
+  backspaceButton: {
+    flex: 1,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff9500',
+    elevation: 3,
+    margin: 2,
+    padding: 5,
+  },
+  backspaceButtonText: {
+    fontSize: 24,
+    color: '#fff',
+  },
+});
 ```
 
-### For iOS
+## License
 
-```bash
-# using npm
-npm run ios
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-# OR using Yarn
-yarn ios
-```
+---
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This README provides a comprehensive overview of the Calculator App, detailing its features, installation, usage, code structure, and styling conventions. Feel free to customize and expand it as needed.
