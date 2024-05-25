@@ -19,7 +19,7 @@ This project is a simple calculator application built using React Native. It sup
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/calculator-app.git
+   git clone https://github.com/ankurpunia30/calculator.git
    ```
 2. Navigate to the project directory:
    ```sh
